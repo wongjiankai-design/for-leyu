@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的展示页</title>
+    <style>
+        /* 1. 基础样式 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000; /* 背景颜色 */
+            font-family: "Microsoft YaHei", sans-serif;
+            overflow: hidden;
+        }
+
+        /* 2. 淡入动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 3. 页面容器（控制所有内容一起淡入） */
+        .container {
+            text-align: center;
+            color: white;
+            animation: fadeIn 2.5s ease-in-out forwards; /* 2.5秒淡入 */
+            max-width: 80%;
+        }
+
+        /* 背景图片样式 */
+        .bg-image {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6); /* 调暗背景，突出文字 */
+        }
+
+        img.content-pic {
+            width: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        p { font-size: 1.1rem; line-height: 1.6; color: #ddd; }
+
+        /* 4. 按钮样式 */
+        .play-btn {
+            margin-top: 30px;
+            padding: 12px 35px;
+            font-size: 18px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-btn:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="background.jpg" class="bg-image" alt="Background">
+
+    <div class="container">
+        <img src="photo.jpg" class="content-pic" alt="Content">
+        
+        <h1>欢迎来到我的页面</h1>
+        <p>这是一段展示文字，你可以随心所欲地修改它。<br>所有的元素都会在打开时优雅地淡入。</p>
+
+        <button class="play-btn" id="musicBtn">点击播放音乐</button>
+    </div>
+
+    <audio id="myAudio">
+        <source src="music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
+    </audio>
+
+    <script>
+        const btn = document.getElementById('musicBtn');
+        const audio = document.getElementById('myAudio');
+
+        // 按钮点击事件
+        btn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                btn.textContent = "暂停音乐";
+            } else {
+                audio.pause();
+                btn.textContent = "点击播放音乐";
+            }
+        });
+    </script>
+</body>
+</html>
