@@ -3,104 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的展示页</title>
+    <title>我的作品展示</title>
     <style>
-        /* 1. 基础样式 */
+        /* --- [1. 基础设置：背景与布局] --- */
         body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
+            background-color: #ffffff; /* 纯白背景 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #fff; /* 背景颜色 */
-            font-family: "Microsoft YaHei", sans-serif;
-            overflow: hidden;
         }
 
-        /* 2. 淡入动画定义 */
+        /* --- [2. 淡入动画定义] --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 3. 页面容器（控制所有内容一起淡入） */
+        /* --- [3. 主容器：控制间距] --- */
         .container {
+            width: 90%;          /* 手机端占据 90% 宽度 */
+            max-width: 800px;    /* 电脑端最大宽度限制 */
             text-align: center;
-            color: white;
-            animation: fadeIn 2.5s ease-in-out forwards; /* 2.5秒淡入 */
-            max-width: 80%;
+            padding: 40px 0;
+            animation: fadeIn 2s ease-out; /* 2秒淡入效果 */
         }
 
-        /* 背景图片样式 */
-        .bg-image {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            filter: brightness(0.6); /* 调暗背景，突出文字 */
+        /* --- [4. 图片设置：更大且响应式] --- */
+        .main-pic {
+            width: 100%;         /* 图片宽度自适应容器 */
+            height: auto;        /* 高度自动缩放，不变形 */
+            max-height: 60vh;    /* 最大高度不超过屏幕的 60% */
+            object-fit: contain; /* 确保图片完整显示 */
+            border-radius: 4px;  /* 轻微圆角，可改为 0 (直角) */
+            margin-bottom: 30px; /* 图片与文字的间距 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* 极轻微的阴影 */
         }
 
-        img.content-pic {
-            width: 200px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        /* --- [5. 文字调节区域] --- */
+        .title {
+            font-size: 28px;     /* 标题字号 */
+            color: #1a1a1a;      /* 近乎黑色的深灰 */
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px; /* 字间距 */
         }
 
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        p { font-size: 1.1rem; line-height: 1.6; color: #ddd; }
+        .description {
+            font-size: 16px;     /* 正文字号 */
+            color: #666666;      /* 灰色正文 */
+            line-height: 1.8;    /* 行高，增加易读性 */
+            margin-bottom: 40px;
+        }
 
-        /* 4. 按钮样式 */
+        /* --- [6. 播放按钮样式] --- */
         .play-btn {
-            margin-top: 30px;
-            padding: 12px 35px;
-            font-size: 18px;
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-            border-radius: 30px;
+            background-color: #1a1a1a; /* 黑色按钮 */
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 50px;       /* 胶囊形状 */
             cursor: pointer;
-            transition: all 0.3s;
+            transition: transform 0.2s, background-color 0.2s;
+            outline: none;
         }
 
         .play-btn:hover {
-            background-color: white;
-            color: black;
+            background-color: #444444; /* 鼠标悬停变浅 */
+            transform: scale(1.05);    /* 鼠标悬停轻微放大 */
+        }
+
+        /* 针对小屏幕（手机）的微调 */
+        @media (max-width: 600px) {
+            .title { font-size: 22px; }
+            .description { font-size: 14px; }
+            .play-btn { width: 80%; } /* 手机上按钮更长，方便点击 */
         }
     </style>
 </head>
 <body>
 
-    <img src="background.jpg" class="bg-image" alt="Background">
-
     <div class="container">
-        <img src="photo.jpg" class="content-pic" alt="Content">
+        <img src="photo.jpg" class="main-pic" alt="展示图">
         
-        <h1>谢谢你</h1>
-        <p>无论是今日还是未来，都在此献上最大的祝福。<br>你是一个人，但也不会是一个人。</p>
+        <div class="title">谢谢你</div>
+        <div class="description">
+            这里输入你的描述文字。<br>
+            每一行文字都可以自由调节，通过修改代码中的内容即可。<br>
+            该页面会自动适配手机与电脑屏幕。
+        </div>
 
-        <button class="play-btn" id="musicBtn">点击播放</button>
+        <button class="play-btn" id="musicBtn">开始播放音乐</button>
     </div>
 
-    <audio id="myAudio">
+    <audio id="myAudio" loop>
         <source src="music.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放。
     </audio>
 
     <script>
         const btn = document.getElementById('musicBtn');
         const audio = document.getElementById('myAudio');
 
-        // 按钮点击事件
         btn.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
-                btn.textContent = "暂停音乐";
+                btn.textContent = "暂停播放";
+                btn.style.backgroundColor = "#666"; // 播放时按钮颜色变淡
             } else {
                 audio.pause();
-                btn.textContent = "点击播放音乐";
+                btn.textContent = "开始播放音乐";
+                btn.style.backgroundColor = "#1a1a1a";
             }
         });
     </script>
